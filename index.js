@@ -102,14 +102,16 @@ function main() {
 
     ctx.stroke() */
 
-    for (let i = 0; i<pointsX; i++) {
-        for (let j = 0; j<pointsY; j++) {
+    for (let i = 0; i<pointsX - 1; i++) {
+        for (let j = 0; j<pointsY - 1; j++) {
             const x = i * pointDist
             const y = j * pointDist
 
             const a = {x: x + pointDist * 1/2, y: y}
-            const b = {x: x, y: y - pointDist * 1/2 }
-            const c = {x: x + pointDist * 1/2: y:y+pointDist}
+            const b = {x: x + pointDist, y: y + pointDist * 1/2}
+            const c = {x: x + pointDist * 1/2, y:y+pointDist}
+            const d = {x: x + pointDist, y:y+pointDist}
+
 
             const state = getState(points[i+1][j], points[i][j], points[i][j+1], points[i+1][j+1])
 
