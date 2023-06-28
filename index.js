@@ -1,4 +1,4 @@
-const pointsize = 2
+const pointsize = 4
 
 const PerlinNoise = new function () {
 
@@ -59,10 +59,14 @@ function getState(p1, p2, p3, p4) {
 }
 
 function drawLine(ctx, a, b) {
+    ctx.save()
+
     ctx.beginPath()
     ctx.moveTo(a.x, a.y)
     ctx.lineTo(b.x, b.y)
     ctx.stroke()
+
+    ctx.restore()
 }
 
 function threshhold(x) {
@@ -94,20 +98,20 @@ function main() {
 
     //ctx.beginPath()
 
-    for (let i = 0; i<pointsX; i++) {
+    for (let i = 0; i < pointsX; i++) {
         //ctx.moveTo(i * pointDist + pointsize, 0)
-        for (let j = 0; j<pointsY; j++) {
+        for (let j = 0; j < pointsY; j++) {
             //ctx.save()
 
-            ctx.strokeStyle = `rgb(0, 0, 0,  ${255 * threshhold(points[i][j])})`
-            ctx.fillStyle = `rgba(0, 0, 0, ${255 * threshhold(points[i][j])})`
+            ctx.strokeStyle = `rgb(${255 * threshhold(points[i][j])}, ${255 * threshhold(points[i][j])}, ${255 * threshhold(points[i][j])})`
+            ctx.fillStyle = `rgb(${255 * threshhold(points[i][j])}, ${255 * threshhold(points[i][j])}, ${255 * threshhold(points[i][j])})`
 
 
             const x = i * pointDist
             const y = j * pointDist
 
-            
-            ctx.fillRect(x + pointsize/2, y + pointsize/2, pointsize, pointsize)
+
+            ctx.fillRect(x + pointsize / 2, y + pointsize / 2, pointsize, pointsize)
             //ctx.lineTo(x + pointsize/2, y + pointsize/2)
 
             ctx.restore()
@@ -120,21 +124,27 @@ function main() {
     ctx.fillStyle = `rgb(0, 0, 0)`
     ctx.strokeStyle = `rgb(0, 0, 0)`
 
-    
+
 
     for (let i = 0; i < pointsX - 1; i++) {
         for (let j = 0; j < pointsY - 1; j++) {
-            const x = i * pointDist
-            const y = j * pointDist
+            const x = i * pointDist + pointsize/2
+            const y = j * pointDist + pointsize/2
 
-            const a = {x: x + pointDist * 1/2, y: y}
-            const b = {x: x + pointDist, y: y + pointDist * 1/2}
-            const c = {x: x + pointDist * 1/2, y:y+pointDist}
-            const d = {x: x + pointDist, y:y+pointDist}
-
-
+            const a = { x: x + pointDist * 1 / 2, y: y } //up
+            const b = { x: x, y: y + pointDist * 1 / 2 } //left
+            const c = { x: x + pointDist * 1 / 2, y: y + pointDist } //right
+            const d = { x: x + pointDist, y: y + pointDist * 1 / 2 } //down
+//i think the order is wrong 
+//vscode dms are better ngl
             const state = getState(points[i + 1][j], points[i][j], points[i][j + 1], points[i + 1][j + 1])
 
+            switch(state) {
+                case 1:
+                    drawLine(ctx, c, d)
+            }
+
+            /*
             switch (state) {
                 case 1:
                     drawLine(ctx, c, d)
@@ -145,33 +155,33 @@ function main() {
                 case 4:
                     drawLine(ctx, b, a)
                 case 5:
-                    drawLine(ctx,b,a)
-                    drawLine(ctx,c,d)
+                    drawLine(ctx, b, a)
+                    drawLine(ctx, c, d)
                 case 6:
-                    drawLine(ctx,a,c)
+                    drawLine(ctx, a, c)
                 case 7:
-                    drawLine(ctx,a,d)
+                    drawLine(ctx, a, d)
                 case 8:
-                    drawLine(ctx,a,d)
+                    drawLine(ctx, a, d)
                 case 9:
                     drawLine(ctx, a, c)
                 case 10:
-                    drawLine(ctx,b,c)
-                    drawLine(ctx,a,d)
+                    drawLine(ctx, b, c)
+                    drawLine(ctx, a, d)
                 case 11:
-                    drawLine(ctx,b,a)
+                    drawLine(ctx, b, a)
                 case 12:
-                    drawLine(ctx,b,d)
+                    drawLine(ctx, b, d)
                 case 13:
-                    drawLine(ctx,b,c)
+                    drawLine(ctx, b, c)
                 case 14:
-                    drawLine(ctx,c,d)
-            }
+                    drawLine(ctx, c, d)
+            } */
 
             ctx.restore()
         }
     }
-    
+
 
 }
 
