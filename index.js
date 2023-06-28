@@ -127,6 +127,10 @@ function main() {
             const x = i * pointDist
             const y = j * pointDist
 
+            const a = {x: x + pointDist * 1/2, y: y} //up
+            const b = {x: x + pointDist, y: y + pointDist * 1/2} //right
+            const c = {x: x + pointDist * 1/2, y: y + pointDist} //bottom
+            const d = {x: x, y: y + pointDist * 1/2} //left
             const a = { x: x + pointDist * 1 / 2, y: y }
             const b = { x: x, y: y + pointDist * 1 / 2 }
             const c = { x: x + pointDist * 1 / 2, y: y + pointDist }
