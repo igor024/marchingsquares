@@ -1,4 +1,4 @@
-const pointsize = 10
+const pointsize = 2
 
 const PerlinNoise = new function () {
 
@@ -55,38 +55,52 @@ const PerlinNoise = new function () {
 }
 
 function getState(p1, p2, p3, p4) {
-    return Math.round(p1)*8+Math.round(p2)*4+Math.round(p3)*2+Math.round(p4)*1
+    return Math.round(p1) * 8 + Math.round(p2) * 4 + Math.round(p3) * 2 + Math.round(p4) * 1
+}
+
+function drawLine(ctx, a, b) {
+    ctx.beginPath()
+    ctx.moveTo(a.x, a.y)
+    ctx.lineTo(b.x, b.y)
+    ctx.stroke()
+}
+
+function threshhold(x) {
+    return x > 0.5 ? 1 : 0
 }
 
 function main() {
     //generate seed
-    const pointDist = 20  
+    const pointDist = 20
     const canvas = document.getElementById("mainCanvas")
     const ctx = document.getElementById("mainCanvas").getContext("2d")
-    
-    const pointsX = Math.floor(canvas.width/pointDist) + 1
-    const pointsY = Math.floor(canvas.height/pointDist) + 1
+
+    ctx.fillStyle = "grey";
+    ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+    const pointsX = Math.floor(canvas.width / pointDist) + 1
+    const pointsY = Math.floor(canvas.height / pointDist) + 1
     const points = new Array(pointsX)
-    
-    for(let i = 0; i < pointsX; i++) {
+
+    for (let i = 0; i < pointsX; i++) {
         points[i] = new Array(pointsY)
-        for(let j = 0; j < pointsY; j++) {
+        for (let j = 0; j < pointsY; j++) {
             points[i][j] = PerlinNoise.noise(i, j, .8)
         }
     }
 
     console.log(points)
     //draw
-    
-    /* ctx.beginPath()
+
+    //ctx.beginPath()
 
     for (let i = 0; i<pointsX; i++) {
-        ctx.moveTo(i * pointDist + pointsize, 0)
+        //ctx.moveTo(i * pointDist + pointsize, 0)
         for (let j = 0; j<pointsY; j++) {
-            ctx.save()
+            //ctx.save()
 
-            ctx.strokeStyle = `rgba(0, 0, 0,  ${points[i][j]})`
-            ctx.fillStyle = `rgba(0, 0, 0, ${points[i][j]})`
+            ctx.strokeStyle = `rgb(0, 0, 0,  ${255 * threshhold(points[i][j])})`
+            ctx.fillStyle = `rgba(0, 0, 0, ${255 * threshhold(points[i][j])})`
 
 
             const x = i * pointDist
@@ -94,35 +108,70 @@ function main() {
 
             
             ctx.fillRect(x + pointsize/2, y + pointsize/2, pointsize, pointsize)
-            ctx.lineTo(x + pointsize/2, y + pointsize/2)
+            //ctx.lineTo(x + pointsize/2, y + pointsize/2)
 
             ctx.restore()
         }
     }
 
-    ctx.stroke() */
+    ctx.stroke()
 
-    for (let i = 0; i<pointsX - 1; i++) {
-        for (let j = 0; j<pointsY - 1; j++) {
+
+    ctx.fillStyle = `rgb(0, 0, 0)`
+    ctx.strokeStyle = `rgb(0, 0, 0)`
+
+    
+
+    for (let i = 0; i < pointsX - 1; i++) {
+        for (let j = 0; j < pointsY - 1; j++) {
             const x = i * pointDist
             const y = j * pointDist
 
-            const a = {x: x + pointDist * 1/2, y: y}
-            const b = {x: x + pointDist, y: y + pointDist * 1/2}
-            const c = {x: x + pointDist * 1/2, y:y+pointDist}
-            const d = {x: x + pointDist, y:y+pointDist}
+            const a = { x: x + pointDist * 1 / 2, y: y }
+            const b = { x: x, y: y + pointDist * 1 / 2 }
+            const c = { x: x + pointDist * 1 / 2, y: y + pointDist }
+            const d = { x: x + pointDist, y: y + pointDist * 1 / 2 }
 
 
-            const state = getState(points[i+1][j], points[i][j], points[i][j+1], points[i+1][j+1])
+            const state = getState(points[i + 1][j], points[i][j], points[i][j + 1], points[i + 1][j + 1])
 
-            switch(state) {
+            switch (state) {
                 case 1:
-
+                    drawLine(ctx, c, d)
+                case 2:
+                    drawLine(ctx, b, c)
+                case 3:
+                    drawLine(ctx, b, d)
+                case 4:
+                    drawLine(ctx, b, a)
+                case 5:
+                    drawLine(ctx,b,a)
+                    drawLine(ctx,c,d)
+                case 6:
+                    drawLine(ctx,a,c)
+                case 7:
+                    drawLine(ctx,a,d)
+                case 8:
+                    drawLine(ctx,a,d)
+                case 9:
+                    drawLine(ctx, a, c)
+                case 10:
+                    drawLine(ctx,b,c)
+                    drawLine(ctx,a,d)
+                case 11:
+                    drawLine(ctx,b,a)
+                case 12:
+                    drawLine(ctx,b,d)
+                case 13:
+                    drawLine(ctx,b,c)
+                case 14:
+                    drawLine(ctx,c,d)
             }
 
             ctx.restore()
         }
     }
+    
 
 }
 
