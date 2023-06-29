@@ -89,7 +89,7 @@ function main() {
     for (let i = 0; i < pointsX; i++) {
         points[i] = new Array(pointsY)
         for (let j = 0; j < pointsY; j++) {
-            points[i][j] = PerlinNoise.noise(i, j, Math.random(.8))
+            points[i][j] = PerlinNoise.noise(i, j, Math.random())
         }
     }
 
