@@ -1,4 +1,9 @@
-const pointsize = 4
+const pointsize = 1
+const pointDist = 30
+const adjustableScale = 0.005
+const noiseScale = adjustableScale * pointDist
+const seed =  Math.random() * 10000
+const numLayers = 8
 
 const PerlinNoise = new function () {
 
@@ -54,6 +59,17 @@ const PerlinNoise = new function () {
     function scale(n) { return (1 + n) / 2; }
 }
 
+function getNoise(x, y) {
+    let res = 0
+    for(let i = 0; i < numLayers; i++) {
+        res += PerlinNoise.noise(x * noiseScale * Math.pow(2,i), y * noiseScale * Math.pow(2,i), seed) * Math.pow(0.5, i)
+        if(i > 0) {
+            res -= 0.5 * Math.pow(0.5, i)
+        }
+    }
+    return res
+}
+
 function getState(p1, p2, p3, p4) { 
     return Math.round(p1) * 8 + Math.round(p2) * 4 + Math.round(p3) * 2 + Math.round(p4) * 1
 }
@@ -75,7 +91,6 @@ function threshhold(x) {
 
 function main() {
     //generate seed
-    const pointDist = 20
     const canvas = document.getElementById("mainCanvas")
     const ctx = document.getElementById("mainCanvas").getContext("2d")
 
@@ -86,10 +101,11 @@ function main() {
     const pointsY = Math.floor(canvas.height / pointDist) + 1
     const points = new Array(pointsX)
 
+
     for (let i = 0; i < pointsX; i++) {
         points[i] = new Array(pointsY)
         for (let j = 0; j < pointsY; j++) {
-            points[i][j] = PerlinNoise.noise(i, j, Math.random())
+            points[i][j] = getNoise(i, j)
         }
     }
 
@@ -131,12 +147,17 @@ function main() {
             const x = i * pointDist + pointsize/2
             const y = j * pointDist + pointsize/2
 
-            const a = { x: x + pointDist * 1 / 2, y: y } //up
-            const b = { x: x, y: y + pointDist * 1 / 2 } //left
-            const c = { x: x + pointDist, y: y + pointDist * 1/2} //right
-            const d = { x: x + pointDist * 1/2, y: y + pointDist} //down
+            const p1 = points[i + 1][j]
+            const p2 = points[i][j]
+            const p3 = points[i][j + 1]
+            const p4 = points[i + 1][j + 1]
 
-            const state = getState(points[i + 1][j], points[i][j], points[i][j + 1], points[i + 1][j + 1])
+            const a = { x: x + pointDist * p1, y: y } //up
+            const b = { x: x, y: y + pointDist * p3 } //left
+            const c = { x: x + pointDist, y: y + pointDist * p4} //but this side would depend which one is turne don tho bc
+            const d = { x: x + pointDist * p4, y: y + pointDist} //down
+
+            const state = getState(p1, p2, p3, p4)
 
             switch(state) {
                 case 1:
