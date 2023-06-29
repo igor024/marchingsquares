@@ -54,7 +54,7 @@ const PerlinNoise = new function () {
     function scale(n) { return (1 + n) / 2; }
 }
 
-function getState(p1, p2, p3, p4) {
+function getState(p1, p2, p3, p4) { 
     return Math.round(p1) * 8 + Math.round(p2) * 4 + Math.round(p3) * 2 + Math.round(p4) * 1
 }
 
@@ -70,7 +70,7 @@ function drawLine(ctx, a, b) {
 }
 
 function threshhold(x) {
-    return x > 0.5 ? 1 : 0
+    return x >= 0.5 ? 1 : 0
 }
 
 function main() {
@@ -89,7 +89,7 @@ function main() {
     for (let i = 0; i < pointsX; i++) {
         points[i] = new Array(pointsY)
         for (let j = 0; j < pointsY; j++) {
-            points[i][j] = PerlinNoise.noise(i, j, .8)
+            points[i][j] = PerlinNoise.noise(i, j, Math.random(.8))
         }
     }
 
@@ -111,7 +111,7 @@ function main() {
             const y = j * pointDist
 
 
-            ctx.fillRect(x + pointsize / 2, y + pointsize / 2, pointsize, pointsize)
+            ctx.fillRect(x, y, pointsize, pointsize)
             //ctx.lineTo(x + pointsize/2, y + pointsize/2)
 
             ctx.restore()
@@ -133,15 +133,56 @@ function main() {
 
             const a = { x: x + pointDist * 1 / 2, y: y } //up
             const b = { x: x, y: y + pointDist * 1 / 2 } //left
-            const c = { x: x + pointDist * 1 / 2, y: y + pointDist } //right
-            const d = { x: x + pointDist, y: y + pointDist * 1 / 2 } //down
-//i think the order is wrong 
-//vscode dms are better ngl
+            const c = { x: x + pointDist, y: y + pointDist * 1/2} //right
+            const d = { x: x + pointDist * 1/2, y: y + pointDist} //down
+
             const state = getState(points[i + 1][j], points[i][j], points[i][j + 1], points[i + 1][j + 1])
 
             switch(state) {
                 case 1:
                     drawLine(ctx, c, d)
+                    break
+                case 2:
+                    drawLine(ctx, b, d)
+                    break
+                case 3:
+                    drawLine(ctx, b, c)
+                    break
+                case 4: 
+                    drawLine(ctx, a, b)
+                    break
+                case 5:
+                    drawLine(ctx, b, a)
+                    drawLine(ctx, c, d)
+                    break
+                case 6:
+                    drawLine(ctx, a, d)
+                    break
+                case 7:
+                    drawLine(ctx, a, c)
+                    break
+                case 8:
+                    drawLine(ctx, a, c)
+                    break
+                case 9:
+                    drawLine(ctx, a, d)
+                    break
+                case 10:
+                    drawLine(ctx, b, d)
+                    drawLine(ctx, a, c)
+                    break
+                case 11:
+                    drawLine(ctx, b, a)
+                    break
+                case 12:
+                    drawLine(ctx, b, c)
+                    break
+                case 13:
+                    drawLine(ctx, b, d)
+                    break
+                case 14:
+                    drawLine(ctx, c, d)
+                    break
             }
 
             /*
