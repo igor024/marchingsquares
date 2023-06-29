@@ -1,6 +1,6 @@
 const pointsize = 0
-const pointDist = 5
-const adjustableScale = 0.001
+const pointDist = 3
+const adjustableScale = 0.005
 const noiseScale = adjustableScale * pointDist
 const seed =  Math.random() * 10000
 const numLayers = 8
