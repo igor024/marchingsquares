@@ -206,40 +206,6 @@ function main() {
                     break
             }
 
-            /*
-            switch (state) {
-                case 1:
-                    drawLine(ctx, c, d)
-                case 2:
-                    drawLine(ctx, b, c)
-                case 3:
-                    drawLine(ctx, b, d)
-                case 4:
-                    drawLine(ctx, b, a)
-                case 5:
-                    drawLine(ctx, b, a)
-                    drawLine(ctx, c, d)
-                case 6:
-                    drawLine(ctx, a, c)
-                case 7:
-                    drawLine(ctx, a, d)
-                case 8:
-                    drawLine(ctx, a, d)
-                case 9:
-                    drawLine(ctx, a, c)
-                case 10:
-                    drawLine(ctx, b, c)
-                    drawLine(ctx, a, d)
-                case 11:
-                    drawLine(ctx, b, a)
-                case 12:
-                    drawLine(ctx, b, d)
-                case 13:
-                    drawLine(ctx, b, c)
-                case 14:
-                    drawLine(ctx, c, d)
-            } */
-
             ctx.restore()
         }
     }
