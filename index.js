@@ -1,6 +1,6 @@
-const pointsize = 1
-const pointDist = 30
-const adjustableScale = 0.005
+const pointsize = 0
+const pointDist = 5
+const adjustableScale = 0.001
 const noiseScale = adjustableScale * pointDist
 const seed =  Math.random() * 10000
 const numLayers = 8
@@ -119,8 +119,8 @@ function main() {
         for (let j = 0; j < pointsY; j++) {
             //ctx.save()
 
-            ctx.strokeStyle = `rgb(${255 * threshhold(points[i][j])}, ${255 * threshhold(points[i][j])}, ${255 * threshhold(points[i][j])})`
-            ctx.fillStyle = `rgb(${255 * threshhold(points[i][j])}, ${255 * threshhold(points[i][j])}, ${255 * threshhold(points[i][j])})`
+            ctx.strokeStyle = `rgb(${255 * (points[i][j])}, ${255 * (points[i][j])}, ${255 * (points[i][j])})`
+            ctx.fillStyle = `rgb(${255 * (points[i][j])}, ${255 * (points[i][j])}, ${255 * (points[i][j])})`
 
 
             const x = i * pointDist
@@ -152,10 +152,10 @@ function main() {
             const p3 = points[i][j + 1]
             const p4 = points[i + 1][j + 1]
 
-            const a = { x: x + pointDist * p1, y: y } //up
-            const b = { x: x, y: y + pointDist * p3 } //left
-            const c = { x: x + pointDist, y: y + pointDist * p4} //but this side would depend which one is turne don tho bc
-            const d = { x: x + pointDist * p4, y: y + pointDist} //down
+            const a = { x: x + pointDist * (p1+p2)/2, y: y } //up
+            const b = { x: x, y: y + pointDist * (p3+p2)/2 } //left
+            const c = { x: x + pointDist, y: y + pointDist * (p4+p1)/2} //but this side would depend which one is turne don tho bc
+            const d = { x: x + pointDist * (p4+p3)/2, y: y + pointDist} //down
 
             const state = getState(p1, p2, p3, p4)
 
