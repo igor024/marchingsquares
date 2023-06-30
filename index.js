@@ -1,4 +1,4 @@
-const pointsize = 0
+const pointsize = 2
 const pointDist = 3
 const adjustableScale = 0.005
 const noiseScale = adjustableScale * pointDist
