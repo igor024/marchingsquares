@@ -1,8 +1,8 @@
 const pointsize = 2
-const pointDist = 10
-const adjustableScale = 0.005
+const pointDist = 5
+const adjustableScale = 0.010
 const noiseScale = adjustableScale * pointDist
-const seed =  8
+let seed =  8
 const numLayers = 1
 
 const PerlinNoise = new function () {
@@ -213,4 +213,20 @@ function main() {
 
 }
 
-window.addEventListener("load", main)
+window.addEventListener("load", () => {
+    const dothething = function() {
+        const canvas = document.getElementById("mainCanvas")
+
+        
+        canvas.width = canvas.width
+        canvas.height = canvas.height
+        
+        seed += 10
+
+        main()
+
+        requestAnimationFrame(dothething)
+    }
+
+    requestAnimationFrame(dothething)
+})
