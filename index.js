@@ -1,5 +1,5 @@
 const pointsize = 2
-const pointDist = 15
+const pointDist = 10
 const adjustableScale = 0.005
 const noiseScale = adjustableScale * pointDist
 const seed =  8
@@ -152,10 +152,10 @@ function main() {
             const p3 = points[i][j + 1]
             const p4 = points[i + 1][j + 1]
 
-            const a = { x: (x + pointDist/2) + pointDist/2 * (p1-p2) * 10, y: y } //up
-            const b = { x: x, y: (y + pointDist/2) + pointDist/2 * (p3-p2) * 10 } //left
-            const c = { x: x + pointDist, y: (y + pointDist/2) + pointDist/2 * (p4-p1) * 10} //right
-            const d = { x: (x + pointDist/2) + pointDist/2 * (p4-p3) * 10, y: y + pointDist} //down
+            const a = { x: (x + pointDist/2) + pointDist/2 * (p1-p2), y: y } //up
+            const b = { x: x, y: (y + pointDist/2) + pointDist/2 * (p3-p2)} //left
+            const c = { x: x + pointDist, y: (y + pointDist/2) + pointDist/2 * (p4-p1)} //right
+            const d = { x: (x + pointDist/2) + pointDist/2 * (p4-p3), y: y + pointDist} //down
 
             const state = getState(p1, p2, p3, p4)
 
