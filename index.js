@@ -1,5 +1,5 @@
 const pointsize = 2
-const pointDist = 50
+const pointDist = 100
 const adjustableScale = 0.010
 const noiseScale = adjustableScale * pointDist
 let seed =  8
@@ -121,8 +121,8 @@ function main() {
         for (let j = 0; j < pointsY; j++) {
             //ctx.save()
 
-            ctx.strokeStyle = `rgb(${255 * (points[i][j])}, ${255 * (points[i][j])}, ${255 * (points[i][j])})`
-            ctx.fillStyle = `rgb(${255 * (points[i][j])}, ${255 * (points[i][j])}, ${255 * (points[i][j])})`
+            ctx.strokeStyle = `rgb(${255 * (points[i][j])}, ${255 * (points[i][j])}, 255)`
+            ctx.fillStyle = `rgb(${255 * (points[i][j])}, 255, 255)`
 
 
             const x = i * pointDist
@@ -156,10 +156,10 @@ function main() {
             const p3 = points[i][j + 1]
             const p4 = points[i + 1][j + 1]
 
-            const a = { x: (x + pointDist/2) + pointDist/2 * (p1-p2), y: y } //up
-            const b = { x: x, y: (y + pointDist/2) + pointDist/2 * (p3-p2)} //left
-            const c = { x: x + pointDist, y: (y + pointDist/2) + pointDist/2 * (p4-p1)} //right
-            const d = { x: (x + pointDist/2) + pointDist/2 * (p4-p3), y: y + pointDist} //down
+            const a = { x: (x + pointDist/2) + pointDist/2 * (p2-p1) * 2, y: y } //up
+            const b = { x: x, y: (y + pointDist/2) + pointDist/2 * (p2-p3) * 2} //left
+            const c = { x: x + pointDist, y: (y + pointDist/2) + pointDist/2 * (p1-p4) * 2} //right
+            const d = { x: (x + pointDist/2) + pointDist/2 * (p3-p4) * 2, y: y + pointDist} //down
 
             const state = getState(p1, p2, p3, p4)
 
