@@ -1,5 +1,5 @@
 const pointsize = 2
-const pointDist = 5
+const pointDist = 50
 const adjustableScale = 0.010
 const noiseScale = adjustableScale * pointDist
 let seed =  8
@@ -129,7 +129,9 @@ function main() {
             const y = j * pointDist
 
 
-            ctx.fillRect(x, y, pointsize, pointsize)
+            //ctx.fillRect(x, y, pointsize, pointsize)
+            ctx.font="5pt Arial"
+            ctx.fillText(points[i][j].toFixed(2), x, y)
             //ctx.lineTo(x + pointsize/2, y + pointsize/2)
 
             ctx.restore()
