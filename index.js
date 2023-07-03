@@ -223,7 +223,7 @@ const dothething = function() {
         canvas.width = canvas.width
         canvas.height = canvas.height
         
-        seed += 10
+        seed += 0.05
 
         main()
 
