@@ -5,6 +5,8 @@ const noiseScale = adjustableScale * pointDist
 let seed =  8
 const numLayers = 1
 
+let clicked = false
+
 const PerlinNoise = new function () {
 
     this.noise = function (x, y, z) {
@@ -213,8 +215,8 @@ function main() {
 
 }
 
-window.addEventListener("load", () => {
-    const dothething = function() {
+const dothething = function() {
+    if (clicked) {
         const canvas = document.getElementById("mainCanvas")
 
         
@@ -227,6 +229,14 @@ window.addEventListener("load", () => {
 
         requestAnimationFrame(dothething)
     }
+}
 
+window.addEventListener("click", () => {
+    clicked = !clicked
+    requestAnimationFrame(dothething)
+})
+
+window.addEventListener("load", () => {
+    main()
     requestAnimationFrame(dothething)
 })
