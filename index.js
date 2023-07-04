@@ -1,7 +1,8 @@
+const renderPoints = true
 const pointDist = 20
 const pointsize = pointDist
 const adjustableScale = Math.random() * 0.01
-const noiseScale = adjustableScale * pointDist
+const noiseScale = adjustableScale * pointDist //dont change this
 const seedIncrementValue = Math.random() * 0.01
 const numLayers = 5
 
@@ -125,25 +126,27 @@ function main() {
 
     //ctx.beginPath()
 
-    for (let i = 0; i < pointsX; i++) {
-        //ctx.moveTo(i * pointDist + pointsize, 0)
-        for (let j = 0; j < pointsY; j++) {
-            //ctx.save()
-
-            ctx.strokeStyle = `rgb(${255 * (points[i][j])}, ${255 * (points[i][j])}, ${255 * (points[i][j])}, ${255 * (points[i][j])})`
-            ctx.fillStyle = `rgb(${255 * (points[i][j])}, ${255 * (points[i][j])}, ${255 * (points[i][j])}, ${255 * (points[i][j])})`
-
-
-            const x = i * pointDist
-            const y = j * pointDist
-
-
-            ctx.fillRect(x, y, pointsize, pointsize)
-            ///ctx.font="5pt Arial"
-            //ctx.fillText(points[i][j].toFixed(2), x, y)
-            //ctx.lineTo(x + pointsize/2, y + pointsize/2)
-
-            ctx.restore()
+    if(renderPoints) {
+        for (let i = 0; i < pointsX; i++) {
+            //ctx.moveTo(i * pointDist + pointsize, 0)
+            for (let j = 0; j < pointsY; j++) {
+                //ctx.save()
+    
+                ctx.strokeStyle = `rgb(${255 * (points[i][j])}, ${255 * (points[i][j])}, ${255 * (points[i][j])}, ${255 * (points[i][j])})`
+                ctx.fillStyle = `rgb(${255 * (points[i][j])}, ${255 * (points[i][j])}, ${255 * (points[i][j])}, ${255 * (points[i][j])})`
+    
+    
+                const x = i * pointDist
+                const y = j * pointDist
+    
+    
+                ctx.fillRect(x, y, pointsize, pointsize)
+                ///ctx.font="5pt Arial"
+                //ctx.fillText(points[i][j].toFixed(2), x, y)
+                //ctx.lineTo(x + pointsize/2, y + pointsize/2)
+    
+                ctx.restore()
+            }
         }
     }
 
