@@ -1,11 +1,18 @@
 const pointsize = 2
-const pointDist = 100
+const pointDist = 20
 const adjustableScale = 0.010
 const noiseScale = adjustableScale * pointDist
 let seed =  8
 const numLayers = 1
 
 let clicked = false
+
+function getT(val1, val2) {
+    const v2 = Math.max(val1, val2);
+    const v1 = Math.min(val1, val2);
+
+    return (0.5 - v1) / (v2 - v1);
+}
 
 const PerlinNoise = new function () {
 
@@ -156,10 +163,10 @@ function main() {
             const p3 = points[i][j + 1]
             const p4 = points[i + 1][j + 1]
 
-            const a = { x: (x + pointDist/2) + pointDist/2 * (p2-p1) * 2, y: y } //up
-            const b = { x: x, y: (y + pointDist/2) + pointDist/2 * (p2-p3) * 2} //left
-            const c = { x: x + pointDist, y: (y + pointDist/2) + pointDist/2 * (p1-p4) * 2} //right
-            const d = { x: (x + pointDist/2) + pointDist/2 * (p3-p4) * 2, y: y + pointDist} //down
+            const a = { x: (x + pointDist/2) + pointDist/2 * getT(p1, p2), y: y } //up
+            const b = { x: x, y: (y + pointDist/2) + pointDist/2 * getT(p2, p3)} //left
+            const c = { x: x + pointDist, y: (y + pointDist/2) + pointDist/2 * getT(p1, p4)} //right
+            const d = { x: (x + pointDist/2) + pointDist/2 * getT(p3, p4), y: y + pointDist} //down
 
             const state = getState(p1, p2, p3, p4)
 
