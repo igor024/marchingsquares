@@ -1,9 +1,11 @@
 const pointDist = 20
 const pointsize = pointDist
-const adjustableScale = 0.001
+const adjustableScale = Math.random() * 0.01
 const noiseScale = adjustableScale * pointDist
-let seed =  8
+const seedIncrementValue = Math.random() * 0.01
 const numLayers = 5
+
+let seed = Math.random() * 10000
 
 let clicked = false
 
@@ -232,7 +234,7 @@ const dothething = function() {
         canvas.width = canvas.width
         canvas.height = canvas.height
         
-        seed += 0.002
+        seed += seedIncrementValue
 
         main()
 
