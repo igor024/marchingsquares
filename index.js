@@ -1,9 +1,9 @@
 const pointsize = 2
 const pointDist = 20
-const adjustableScale = 0.010
+const adjustableScale = 0.001
 const noiseScale = adjustableScale * pointDist
 let seed =  8
-const numLayers = 1
+const numLayers = 5
 
 let clicked = false
 
@@ -128,17 +128,17 @@ function main() {
         for (let j = 0; j < pointsY; j++) {
             //ctx.save()
 
-            ctx.strokeStyle = `rgb(${255 * (points[i][j])}, ${255 * (points[i][j])}, 255)`
-            ctx.fillStyle = `rgb(${255 * (points[i][j])}, 255, 255)`
+            ctx.strokeStyle = `rgb(${255 * (points[i][j])}, ${255 * (points[i][j])}, ${255 * (points[i][j])}, ${255 * (points[i][j])})`
+            ctx.fillStyle = `rgb(${255 * (points[i][j])}, ${255 * (points[i][j])}, ${255 * (points[i][j])}, ${255 * (points[i][j])})`
 
 
             const x = i * pointDist
             const y = j * pointDist
 
 
-            //ctx.fillRect(x, y, pointsize, pointsize)
-            ctx.font="5pt Arial"
-            ctx.fillText(points[i][j].toFixed(2), x, y)
+            ctx.fillRect(x, y, pointsize, pointsize)
+            ///ctx.font="5pt Arial"
+            //ctx.fillText(points[i][j].toFixed(2), x, y)
             //ctx.lineTo(x + pointsize/2, y + pointsize/2)
 
             ctx.restore()
@@ -232,7 +232,7 @@ const dothething = function() {
         canvas.width = canvas.width
         canvas.height = canvas.height
         
-        seed += 0.05
+        seed += 0.002
 
         main()
 
