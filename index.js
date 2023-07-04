@@ -1,5 +1,5 @@
-const pointsize = 2
 const pointDist = 20
+const pointsize = pointDist
 const adjustableScale = 0.001
 const noiseScale = adjustableScale * pointDist
 let seed =  8
